@@ -22,6 +22,7 @@ import {
   invites,
   principalPermissionGrants,
   companyMemberships,
+  startupProfiles,
 } from "@paperclipai/db";
 
 export function companyService(db: Db) {
@@ -119,6 +120,7 @@ export function companyService(db: Db) {
         await tx.delete(goals).where(eq(goals.companyId, id));
         await tx.delete(projects).where(eq(projects.companyId, id));
         await tx.delete(agents).where(eq(agents.companyId, id));
+        await tx.delete(startupProfiles).where(eq(startupProfiles.companyId, id));
         await tx.delete(activityLog).where(eq(activityLog.companyId, id));
         const rows = await tx
           .delete(companies)

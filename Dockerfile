@@ -34,9 +34,10 @@ RUN test -f server/dist/index.js || (echo "ERROR: server build output missing" &
 FROM base AS production
 WORKDIR /app
 COPY --chown=node:node --from=build /app /app
+# Agent runtimes for Claude/Codex/OpenCode adapters (keys passed at runtime via env)
 RUN npm install --global --omit=dev @anthropic-ai/claude-code@latest @openai/codex@latest opencode-ai \
   && mkdir -p /paperclip \
-  && chown node:node /paperclip
+  && chown -R node:node /paperclip /app
 
 ENV NODE_ENV=production \
   HOME=/paperclip \
@@ -53,4 +54,5 @@ VOLUME ["/paperclip"]
 EXPOSE 3100
 
 USER node
-CMD ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]
+# Production: run compiled JS only (no tsx)
+CMD ["node", "server/dist/index.js"]

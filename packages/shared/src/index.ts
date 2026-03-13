@@ -238,6 +238,8 @@ export {
   type CompanyPortabilityExport,
   type CompanyPortabilityPreview,
   type CompanyPortabilityImport,
+  createStartupWorkspaceSchema,
+  type CreateStartupWorkspace,
 } from "./validators/index.js";
 
 export { API_PREFIX, API } from "./api.js";

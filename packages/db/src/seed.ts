@@ -1,5 +1,5 @@
 import { createDb } from "./client.js";
-import { companies, agents, goals, projects, issues } from "./schema/index.js";
+import { companies, agents, goals, projects, issues, startupTemplates } from "./schema/index.js";
 
 const url = process.env.DATABASE_URL;
 if (!url) throw new Error("DATABASE_URL is required");
@@ -92,6 +92,70 @@ await db.insert(issues).values([
     status: "backlog",
     priority: "medium",
     createdByAgentId: ceo!.id,
+  },
+]);
+
+await db.insert(startupTemplates).values([
+  {
+    slug: "saas",
+    name: "SaaS Startup",
+    description: "Subscription software product with landing page, auth, and core features",
+    defaultRoadmap30: [
+      { title: "Define MVP scope", description: "List must-have features", order: 1 },
+      { title: "Landing page", description: "Marketing landing with signup", order: 2 },
+      { title: "Auth & billing", description: "User auth and subscription billing", order: 3 },
+    ],
+    defaultRoadmap90: [
+      { title: "Launch MVP", order: 1 },
+      { title: "Onboarding flow", order: 2 },
+      { title: "Core feature set", order: 3 },
+      { title: "Analytics & feedback", order: 4 },
+    ],
+  },
+  {
+    slug: "ai-tool",
+    name: "AI Tool",
+    description: "AI-powered product with model integration and usage tracking",
+    defaultRoadmap30: [
+      { title: "Define use case", order: 1 },
+      { title: "Model integration (API)", order: 2 },
+      { title: "Simple UI", order: 3 },
+    ],
+    defaultRoadmap90: [
+      { title: "Launch beta", order: 1 },
+      { title: "Usage & limits", order: 2 },
+      { title: "Improve prompts/flows", order: 3 },
+    ],
+  },
+  {
+    slug: "marketplace",
+    name: "Marketplace",
+    description: "Two-sided marketplace connecting buyers and sellers",
+    defaultRoadmap30: [
+      { title: "Supply side MVP", order: 1 },
+      { title: "Demand side MVP", order: 2 },
+      { title: "Matching & discovery", order: 3 },
+    ],
+    defaultRoadmap90: [
+      { title: "Launch marketplace", order: 1 },
+      { title: "Payments", order: 2 },
+      { title: "Trust & safety", order: 3 },
+    ],
+  },
+  {
+    slug: "content-platform",
+    name: "Content Platform",
+    description: "Content creation, curation, and distribution platform",
+    defaultRoadmap30: [
+      { title: "Content model", order: 1 },
+      { title: "Create & edit flows", order: 2 },
+      { title: "Feed or discovery", order: 3 },
+    ],
+    defaultRoadmap90: [
+      { title: "Launch platform", order: 1 },
+      { title: "Engagement features", order: 2 },
+      { title: "Monetization", order: 3 },
+    ],
   },
 ]);
 

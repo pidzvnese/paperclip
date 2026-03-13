@@ -137,3 +137,8 @@ export {
   type UpdateMemberPermissions,
   type UpdateUserCompanyAccess,
 } from "./access.js";
+
+export {
+  createStartupWorkspaceSchema,
+  type CreateStartupWorkspace,
+} from "./startup-builder.js";

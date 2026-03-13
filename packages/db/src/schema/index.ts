@@ -32,3 +32,6 @@ export { approvalComments } from "./approval_comments.js";
 export { activityLog } from "./activity_log.js";
 export { companySecrets } from "./company_secrets.js";
 export { companySecretVersions } from "./company_secret_versions.js";
+export { startupTemplates } from "./startup_templates.js";
+export type { RoadmapItem } from "./startup_templates.js";
+export { startupProfiles } from "./startup_profiles.js";
