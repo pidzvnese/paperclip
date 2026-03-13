@@ -27,9 +27,20 @@ FROM base AS build
 WORKDIR /app
 COPY --from=deps /app /app
 COPY . .
+RUN pnpm --filter @paperclipai/shared build
+RUN pnpm --filter @paperclipai/adapter-utils build
+RUN pnpm --filter @paperclipai/db build
+RUN pnpm --filter @paperclipai/adapter-claude-local build \
+  && pnpm --filter @paperclipai/adapter-codex-local build \
+  && pnpm --filter @paperclipai/adapter-cursor-local build \
+  && pnpm --filter @paperclipai/adapter-gemini-local build \
+  && pnpm --filter @paperclipai/adapter-openclaw-gateway build \
+  && pnpm --filter @paperclipai/adapter-opencode-local build \
+  && pnpm --filter @paperclipai/adapter-pi-local build
 RUN pnpm --filter @paperclipai/ui build
 RUN pnpm --filter @paperclipai/server build
 RUN test -f server/dist/index.js || (echo "ERROR: server build output missing" && exit 1)
+RUN test -f packages/db/dist/index.js || (echo "ERROR: db build output missing" && exit 1)
 
 FROM base AS production
 WORKDIR /app
